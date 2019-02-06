@@ -1,0 +1,16 @@
+  <h1 class="text-center m-4"><i class="fas fa-comments"></i> Tous les potins</h1>
+
+  <div class="card-columns border-info container">
+    <% @gossips.each do |i| %>
+      <div class="card" style="width: 18rem;">
+        <div class="card-header"><h5 class="card-title"><%= i.title %> <span class="badge badge-secondary">
+      <i class="fas fa-comments"></i> <%= i.comments.count %></span></h5>
+        <%= i.comments.count %>
+        </div>
+        <div class="card-body">
+          <h6 class="card-subtitle mb-2 text-muted"><%= i.user.first_name %></h6>
+          <%= link_to "Go Potin", gossip_path(i.id),:class => "btn-info btn p-1"%>
+        </div>
+      </div>
+    <% end %>
+</div>

@@ -1,0 +1,33 @@
+
+<div class="card border-info m-5 text-center">
+  <div class="card-header">
+    <h1><i class="fas fa-user"></i> <u><%= @user.first_name + " " + @user.last_name  %></u></h1>
+  </div>
+  <div class="card-body text-info">
+    <ul class="card-text list-group">
+      <li class="list-group-item">Prénom : <%= @user.first_name %></li>
+      <li class="list-group-item">Nom : <%= @user.last_name %></li>
+      <li class="list-group-item">Description : <%= @user.description %></li>
+      <li class="list-group-item">Email : <%= @user.email %></li>
+      <li class="list-group-item">Âge : <%= @user.age %></li>
+      <li class="list-group-item">Ville : <%= link_to @user.city.name , city_path(@user.city.id),:class => ""%></li>
+    </ul>
+  </div>
+  <div>
+    <%= link_to "ville de " + @user.city.name , city_path(@user.city.id),:class => "btn-info btn m-2"%>
+  </div>
+</div>
+
+
+<h2 class="text-center mb-5">Potins de <%= @user.first_name %> </h2>
+<div class="card-columns border-info container">
+  <% @user.gossips.each do |i| %>
+    <div class="card" style="width: 18rem;">
+      <div class="card-header"><h5 class="card-title"><%= i.title %></h5></div>
+      <div class="card-body">
+        <h6 class="card-subtitle mb-2 text-muted"><%= i.user.first_name %></h6>
+        <%= link_to "Go Potin", gossip_path(i.id),:class => "btn-info btn p-1"%>
+      </div>
+    </div>
+  <% end %>
+</div>

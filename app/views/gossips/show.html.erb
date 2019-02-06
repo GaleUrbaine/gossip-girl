@@ -1,0 +1,63 @@
+
+<div class="card border-info text-center m-5">
+  <div class="card-header">
+    <p class="text-right text-muted">
+      <i class="fas fa-edit"></i> <%= link_to "Éditer le potin", edit_gossip_path(params[:id]) %>&nbsp;&nbsp;
+      <i class="fas fa-trash-alt"></i> <%= link_to "Supprimer le potin", gossip_path(params[:id]), type: "submit", method: "delete", data: { confirm: "Tu es sûr-e ?" }  %>
+    </p>
+    <h1><i class="fas fa-comment"></i> <u><%= @gossip.title %></u> <small class="text-muted">(Potin n° <%= params[:id] %>)</small></h1>
+  </div>
+
+  <div class="card-body text-info">
+    <blockquote class="blockquote">
+      <p class="m-2"><%= @gossip.content %></p>
+        <footer class="blockquote-footer">
+          <cite title="Auteur du potin">
+            <%= link_to @gossip.user.first_name + " " + @gossip.user.last_name, user_path(@user.id) %>
+          </cite>
+          de la ville de <%= @gossip.user.city.name %>
+        </footer>
+      </blockquote>
+  </div>
+  <div class="card-footer text-muted text-right"><i class="far fa-clock"></i> <%= @gossip.created_at %></div>
+</div>
+
+<!-- Ajouter un commentaire  -->
+<div class="card m-5">
+ <div class="card-header">
+  <h1>Ajouter un commentaire</h1>
+  </div>
+  <%= form_tag(gossip_comments_path(params[:id]), method: :create) do %>
+
+  <div class="card-body text-info">
+    <div class="form-group">
+      <%= label_tag 'Contenu du commentaire' %>
+      <%= text_area_tag 'content', @comment.content, class: "form-control", placeholder: "Ton commentaire" %>
+      <br /> <br />
+
+      <%= submit_tag "Ajouter un commentaire", class: "btn btn-info" %>
+    <% end %>
+  </div>
+  </div>
+
+</div>
+
+<!-- Affichage des commentaires -->
+<h1 class="text-center m-4"><i class="far fa-comments"></i> Tous les commentaires</h1>
+
+  <div class="card-columns border-info container">
+    <% @comments.each do |c| %>
+      <div class="card">
+        <div class="card-body">
+        <h5 class="card-title"><i class="far fa-comment"></i> <%= c.content %></h5>
+          <h6 class="card-subtitle mb-2 text-muted"><i class="far fa-user"></i> <%= c.user.first_name + " " + c.user.last_name %></h6>
+          <i class="fas fa-edit"></i> <%= link_to "Éditer", edit_gossip_comment_path(@gossip.id, c.id) %>&nbsp;&nbsp;
+          <i class="fas fa-trash-alt"></i> <%= link_to "Supprimer", gossip_comment_path(@gossip.id, c.id), type: "submit", method: "delete", data: { confirm: "Tu es sûr-e ?" }  %>
+        </div>
+      </div>
+
+
+    <% end %>
+</div>
+
+

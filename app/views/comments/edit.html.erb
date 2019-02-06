@@ -1,0 +1,19 @@
+<div class="card border-info m-5">
+ <div class="card-header"><h1><i class="fas fa-edit"></i> Édite le commentaire</h1></div>
+
+  <%= form_tag url_for(action: 'update'), method: "patch" do %>
+
+      <div class="card-body text-info">
+        <div class="form-group">
+          <%= label_tag 'Contenu du commentaire' %>
+          <%= text_area_tag :content, @comment.content, class:'form-control', placeholder: @comment.content %>
+          <br /> <br />
+
+          <%= submit_tag "Éditer le commentaire", class: "btn btn-info" %>
+        <% end %>
+      </div>
+    </div>
+
+
+  </div>
+</div>
