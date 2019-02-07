@@ -7,11 +7,7 @@
 
   <div class="card-body text-info">
     <div class="form-group">
-      <%= label_tag 'Titre'%>
       <%= text_field_tag 'title', @gossip.title, class: "form-control", placeholder: "Le titre de ton potin" %>
-      <br /> <br />
-
-      <%= label_tag 'Contenu du potin' %>
       <%= text_area_tag 'content', @gossip.content, class: "form-control", placeholder: "Ton potin" %>
       <br /> <br />
 

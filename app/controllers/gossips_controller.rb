@@ -9,9 +9,6 @@ class GossipsController < ApplicationController
     @user = @gossip.user
     @comments = @gossip.comments
     @comment = Comment.new
-    puts "*" * 60
-    puts @comments
-    puts "*" * 60
   end
 
   def new
@@ -19,10 +16,10 @@ class GossipsController < ApplicationController
   end
 
   def create
-    @gossip = Gossip.new(title: params[:title], content: params[:content], user_id: 100)
+    @gossip = Gossip.new(title: params[:title], content: params[:content], user_id: User.all.sample.id)
 
     if @gossip.save # essaie de sauvegarder en base @gossip
-      redirect_to root_path, :notice => "User saved"
+      redirect_to root_path, :notice => "Potin créé !"
     else
       render 'new'
     end
@@ -37,7 +34,8 @@ class GossipsController < ApplicationController
     gossip_params = params.permit(:title, :content)
 
       if @gossip.update(gossip_params)
-        redirect_to @gossip
+        # flash[:notice] = "Gossip mis à jour"
+        redirect_to @gossip, :notice => "Gossip mis à jour"
       else
         render :edit
       end

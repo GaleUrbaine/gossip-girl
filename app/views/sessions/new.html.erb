@@ -1,0 +1,35 @@
+<% if flash.now[:danger] %>
+<div class="alert alert-danger">
+  <div class="notice">
+    <%= flash.now[:danger] %>
+    <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+<% end %>
+
+<div class="card border-info m-5">
+ <div class="card-header">
+  <h1>Se connecter</h1>
+  </div>
+  <%= form_tag(sessions_path, method: "post") do %>
+
+  <div class="card-body text-info">
+    <div class="form-group">
+      <%= label_tag 'email' %>
+      <%= text_field_tag :email, '', class: 'form-control', placeholder: 'Email' %>
+      <br /><br />
+
+      <%= label_tag 'password' %>
+      <%= password_field_tag 'password', '', class: 'form-control', placeholder: 'Mot de passe' %>
+      <br /> <br />
+
+      <%= submit_tag "Log in", class: "btn btn-info" %>
+
+    </div>
+  <p class="mt-4">Pas encore de compte ? <%= link_to "Je m'inscris", new_user_path %>
+</p>
+  </div>
+  <% end %>
+</div>

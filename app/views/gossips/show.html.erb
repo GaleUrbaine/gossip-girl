@@ -1,4 +1,13 @@
-
+<% if flash.now[:notice] %>
+<div class="alert alert-success">
+  <div class="notice">
+    <%= flash.now[:notice] %>
+    <button class="close" type="button" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+</div>
+<% end %>
 <div class="card border-info text-center m-5">
   <div class="card-header">
     <p class="text-right text-muted">
@@ -25,7 +34,7 @@
 <!-- Ajouter un commentaire  -->
 <div class="card m-5">
  <div class="card-header">
-  <h1>Ajouter un commentaire</h1>
+  <h2>Ajouter un commentaire</h2>
   </div>
   <%= form_tag(gossip_comments_path(params[:id]), method: :create) do %>
 
@@ -36,10 +45,9 @@
       <br /> <br />
 
       <%= submit_tag "Ajouter un commentaire", class: "btn btn-info" %>
-    <% end %>
+  <% end %>
+    </div>
   </div>
-  </div>
-
 </div>
 
 <!-- Affichage des commentaires -->

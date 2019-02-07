@@ -9,9 +9,7 @@
     <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"> -->
     <link href="https://bootswatch.com/4/materia/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
-      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
-      crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -23,22 +21,32 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <%= link_to "The Potin Project", root_path, :class => "navbar-brand" %>
 
-      <button class="navbar-toggler" type="button"
-          data-toggle="collapse" data-target="#navbarNavAltMarkup"
-          aria-controls="navbarNavAltMarkup" aria-expanded="false"
-          aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <%= link_to "Contact", contact_path, :class => "nav-item", :class => "nav-link" %>
+        <div class="navbar-nav navbar-nav-scroll">
+          <%= link_to "Contact", contact_path, :class => "nav-item nav-link" %>
           <%= link_to "Team", team_path, :class => "nav-item nav-link" %>
-          <%= link_to "Ajouter un potin", new_gossip_path, :class => "nav-item nav-link" %>
+          <% if session[:user_id] != nil %>
+            <%= link_to "Ajouter un potin", new_gossip_path, :class => "nav-item nav-link" %>
+          <% end %>
+        </div>
+        <div class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+
+          <% if session[:user_id] != nil %>
+            <p class="nav-item nav-link"><%= User.find_by(id: session[:user_id]).first_name %></p>
+            <%= link_to "Log out", session_path(session[:user_id]), method: :delete, data: { confirm: "Tu es sûr-e ?" }, :class => "nav-item nav-link" %>
+
+          <% else %>
+            <%= link_to "Login", new_session_path, :class => "nav-item nav-link" %>
+            <%= link_to "S'inscrire", new_user_path, :class => "nav-item nav-link" %>
+          <% end %>
         </div>
       </div>
     </nav>
 
-  <div class= "ml-2 mt-2" >
+  <div class="ml-2 mt-2" >
     <%= yield %>
   </div>
   </body>

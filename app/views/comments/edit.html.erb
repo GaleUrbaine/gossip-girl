@@ -10,6 +10,8 @@
           <br /> <br />
 
           <%= submit_tag "Éditer le commentaire", class: "btn btn-info" %>
+         <%= link_to "Supprimer le commentaire", gossip_comment_path(@comment.gossip.id, @comment.id), type: "submit", method: "delete", data: { confirm: "Tu es sûr-e ?" }, class: "btn btn-danger"  %>
+
         <% end %>
       </div>
     </div>

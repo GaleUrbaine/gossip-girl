@@ -16,16 +16,12 @@ class CommentsController < ApplicationController
   end
 
   def create
-    puts "*" *60
-    puts params
-    puts "*" * 60
-    @comment = Comment.create!(content: params[:content], user_id: 100, gossip_id: params[:gossip_id])
+    @comment = Comment.create(content: params[:content], user_id: 100, gossip_id: params[:gossip_id])
     redirect_to gossip_path(params[:gossip_id])
   end
 
   def edit
     @comment = Comment.find(params[:id])
-
   end
 
   def update
