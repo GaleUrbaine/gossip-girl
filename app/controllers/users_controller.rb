@@ -8,7 +8,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    # @user = User.find(params[:id])
+    @user = current_user
   end
 
   def new
@@ -28,7 +29,7 @@ class UsersController < ApplicationController
                      city_id: City.all.sample.id)
 
     if @user.save # essaie de sauvegarder en base @gossip
-      session[:user_id] = @user.id
+      log_in(@user)
       redirect_to root_path, :notice => "Bienvenue #{@user.first_name} !"
     else
       render 'new'

@@ -3,18 +3,18 @@
   <h1>Ajouter un potin</h1>
   </div>
   <%= form_tag url_for(action: 'create'), method: "post" do %>
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
 
+      <div class="card-body text-info">
+        <div class="form-group">
+          <%= text_field_tag 'title', @gossip.title, class: "form-control", placeholder: "Le titre de ton potin" %>
+          <%= text_area_tag 'content', @gossip.content, class: "form-control", placeholder: "Ton potin" %>
+          <br /> <br />
 
-  <div class="card-body text-info">
-    <div class="form-group">
-      <%= text_field_tag 'title', @gossip.title, class: "form-control", placeholder: "Le titre de ton potin" %>
-      <%= text_area_tag 'content', @gossip.content, class: "form-control", placeholder: "Ton potin" %>
-      <br /> <br />
-
-      <%= submit_tag "Create Gossip", class: "btn btn-info" %>
-    <% end %>
-  </div>
-  </div>
+          <%= submit_tag "Ajouter mon potin", class: "btn btn-info" %>
+        <% end %>
+      </div>
+    </div>
 </div>
     <% if @gossip.errors.any? %>
     <div class="alert alert-danger" role="alert">

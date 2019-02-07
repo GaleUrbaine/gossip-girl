@@ -8,32 +8,44 @@
   </div>
 </div>
 <% end %>
+
 <div class="jumbotron mr-2">
-  <img class="rounded float-right img-thumbnail img-fluid m-2" src="https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fimg.memecdn.com%2FThe-gossip-turkey_c_128800.jpg&f=1" alt="potin">
-  <h1 class="display-4">Bienvenue sur le Potin Project&nbsp!</h1>
+  <img class="rounded float-right img-thumbnail img-fluid m-2"
+    src="https://blog.oxforddictionaries.com/wp-content/uploads/gossip-pop-art-men.jpg"
+    alt="potin">
+  <h1 class="display-4">Bienvenue sur Gossip Project&nbsp!</h1>
   <p class="lead">Les potins les plus intéressants de THP !</p>
   <hr class="my-4">
   <% if session[:user_id] != nil %>
-    <p>Tu vas pouvoir ajouter ton potin :</p>
+    <p>Crache ton venin :</p>
     <%= link_to "Ajouter un potin", new_gossip_path,:class => "btn-danger btn btn-lg"%>
   <% else %>
-    <p>Inscris-toi pour ajouter un potin :</p>
+    <p>Inscris-toi pour cracher ton venin :</p>
     <%= link_to "Je m'inscris", new_user_path,:class => "btn-danger btn btn-lg"%>
   <% end %>
-
 </div>
 
-
-  <div class="card-columns border-info container">
-  <% @gossip.each do |i| %>
-    <div class="card" style="width: 18rem;">
-      <div class="card-header"><h5 class="card-title"><%= i.title %> <span class="badge badge-secondary">
-      <i class="fas fa-comments"></i> <%= i.comments.count %></span></h5>
-      </div>
-      <div class="card-body">
-        <h6 class="card-subtitle mb-2 text-muted"><%= i.user.first_name %></h6>
-        <%= link_to "Go Potin", gossip_path(i.id),:class => "btn-info btn p-1"%>
+      <div class="card-columns border-info container">
+      <div class="row">
+        <% @gossip.each do |i|
+        @title = i.title
+        @content = i.content
+        @user = i.user
+        %>
+          <div class="col-sm-7">
+            <div class="card mb-3 box-shadow">
+              <div class="card-body">
+                <small class="text-muted"><%= @user.first_name %></small>
+                <p class="card-text"><%= @content %></p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <a href="/dynamic/potins"><button type="button"
+                      class="btn btn-sm btn-outline-secondary">View</button></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
       </div>
     </div>
-  <% end %>
-</div>

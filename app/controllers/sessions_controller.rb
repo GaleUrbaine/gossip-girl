@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
 
     # on vérifie si l'utilisateur existe bien ET si on arrive à l'authentifier (méthode bcrypt) avec le mot de passe
     if user && user.authenticate(params[:password])
-      session[:user_id] = user.id
+      log_in(user)
       flash[:notice] = "Vous êtes connecté"
       redirect_to root_path
       # redirige où tu veux, avec un flash ou pas

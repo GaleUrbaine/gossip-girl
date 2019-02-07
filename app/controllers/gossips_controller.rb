@@ -1,4 +1,7 @@
 class GossipsController < ApplicationController
+  before_action :authenticate_user, only: [:new]
+  before_action :author_gossip, only: [:edit, :update, :destroy]
+
   def index
     @gossips = Gossip.all
     # Méthode qui récupère tous les potins et les envoie à la view index (index.html.erb) pour affichage
@@ -13,10 +16,11 @@ class GossipsController < ApplicationController
 
   def new
     @gossip = Gossip.new
+    @user_id = session[:user_id]
   end
 
   def create
-    @gossip = Gossip.new(title: params[:title], content: params[:content], user_id: User.all.sample.id)
+    @gossip = Gossip.new(title: params[:title], content: params[:content], user_id: session[:user_id] )
 
     if @gossip.save # essaie de sauvegarder en base @gossip
       redirect_to root_path, :notice => "Potin créé !"
@@ -45,6 +49,22 @@ class GossipsController < ApplicationController
     @gossip = Gossip.find(params[:id])
     @gossip.destroy
     redirect_to gossips_path
+  end
 
+  private
+
+  def authenticate_user
+    unless current_user
+        flash[:danger] = "Connecte-toi ;)"
+        redirect_to new_session_path
+    end
+  end
+
+  def author_gossip
+    @gossip = Gossip.find(params[:id])
+    unless current_user == @gossip.user
+        flash[:danger] = "Tu n'es pas l'auteur de ce potin."
+        redirect_to root_path
+    end
   end
 end
