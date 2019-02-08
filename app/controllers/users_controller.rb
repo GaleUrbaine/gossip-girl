@@ -34,7 +34,12 @@ class UsersController < ApplicationController
     else
       render 'new'
     end
-    # Par rapport à ce qu'on a vu jusque-là, la méthode #create du controller users ne change quasiment pas. Simplement, il faut récupérer le mot de passe depuis le formulaire d'inscription (via params) et faire un simple User.new(email: "xxx", password: "yyy"). La gem bcrypt s'occupe de tout côté model pour encrypter le password : Fat model, skinny controller !
+    # Par rapport à ce qu'on a vu jusque-là,
+    # la méthode #create du controller users ne change quasiment pas.
+    # Simplement, il faut récupérer le mot de passe depuis le formulaire d'inscription
+    # (via params) et faire un simple User.new(email: "xxx",
+    # password: "yyy"). La gem bcrypt s'occupe de tout côté model pour
+    # encrypter le password : Fat model, skinny controller !
     # User.new(email: "xxx", password: "yyy")
   end
 

@@ -50,7 +50,29 @@
   <div class="row">
     <div class="col-sm-3 well">
       <div class="well">
-        <p><a href="#">My Profile</a></p>
+        <% if session[:user_id] != nil %>
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= current_user.first_name %>
+              </button>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                <%= link_to "Profil", user_path(session[:user_id]), :class => "dropdown-item" %>
+                <br>
+                <%= link_to "Se déconnecter", session_path(session[:user_id]), method: :delete, data: { confirm: "Tu es sûr-e ?" }, :class => "dropdown-item" %>
+              </div>
+            </div>
+          <% else %>
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Connexion / Inscription
+              </button>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                <%= link_to "Se connecter", new_session_path, :class => "dropdown-item" %>
+                <br>
+                <%= link_to "S'inscrire", new_user_path, :class => "dropdown-item" %>
+              </div>
+            </div>
+          <% end %>
         <img src="https://i.kym-cdn.com/photos/images/original/000/456/353/05a.jpg" class="img-circle" height="100" width="150" alt="Avatar">
       </div>
       <p><a href="https://www.newgrounds.com/portal/view/484667">Petits</a></p>
